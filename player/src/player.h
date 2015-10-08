@@ -14,7 +14,7 @@
 		uint8_t jump_speed;
 		uint8_t orientation;
 		uint32_t score;
-		uint8_t hearts;
+		uint8_t health;
 	} PLAYER;
 
 	PLAYER* createPlayer ();
