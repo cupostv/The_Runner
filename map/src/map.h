@@ -6,6 +6,7 @@
 
 #define BLOCKED 1
 #define AIR 0
+#define GRAVITY 4
 #define CELL_WIDTH 30
 #define CELL_HEIGHT 30
 #define SCREEN_WIDTH 630

@@ -47,6 +47,14 @@ void initMap ()
 	}
 }
 
+void initPlayerTexture (void)
+{
+	SDL_Surface* loader = NULL;
+	loader = SDL_CreateRGBSurface (0, PLAYER_WIDTH, PLAYER_HEIGHT, DEPTH, 0x00, 0x00, 0x00, 0xFF);
+	player_texture = SDL_CreateTextureFromSurface (renderer, loader);
+}
+
+
 void clearScreen ()
 {
 	SDL_RenderClear(renderer);
@@ -56,8 +64,6 @@ void renderBackground()
 {
 	SDL_RenderCopy(renderer, background, NULL, NULL);
 }
-
-
 
 void renderMap()
 {
@@ -78,6 +84,17 @@ void renderMap()
 		}
 	}
 }
+
+void renderPlayer(PLAYER* player)
+{
+	SDL_Rect dst;
+	dst.x = player->x_position;
+	dst.y = player->y_position;
+	dst.w = PLAYER_WIDTH;
+	dst.h = PLAYER_HEIGHT;
+	SDL_RenderCopy (renderer, player_texture, NULL, &dst);
+}
+
 void draw()
 {
 	SDL_RenderPresent(renderer);

@@ -26,3 +26,13 @@ int loadMapFromFile (char* path)
 	}
 	return 1;
 }
+
+int getCurrentRow (int y_pixel)
+{
+	return y_pixel / CELL_HEIGHT;
+}
+
+int getCurrentColumn (int x_pixel)
+{
+	return x_pixel / CELL_WIDTH;
+}
