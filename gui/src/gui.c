@@ -4,20 +4,21 @@ int initGUI ()
 {
 	window = SDL_CreateWindow( "The Runner", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 	if( window == NULL )
-	{ 
+	{
 		printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
 		return 0;
 	}
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if(renderer == NULL)
-	{ 
+	{
 		printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
 		return 0;
 	}
 	loading_surface = SDL_GetWindowSurface( window );
 
 	SDL_FillRect (loading_surface, NULL, SDL_MapRGB(loading_surface->format, 0xFF, 0xFF, 0xFF));
-	background = SDL_CreateTextureFromSurface (renderer, loading_surface);
+
+	background = SDL_CreateTextureFromSurface (renderer, SDL_LoadBMP("map/tiles/bg.bmp"));
 
 	return 1;
 }
@@ -25,6 +26,7 @@ int initGUI ()
 void initMap ()
 {
 	SDL_Surface* loader = NULL;
+	SDL_Surface* brick = SDL_LoadBMP("map/tiles/bricks.bmp");
 	int i;
 	int j;
 	for (i = 0; i < ROWS; i++)
@@ -33,18 +35,18 @@ void initMap ()
 		{
 			if (map [i][j] == 1)
 			{
-				loader = SDL_CreateRGBSurface (0, CELL_WIDTH, CELL_HEIGHT, DEPTH, 0x00, 0x00, 0x00, 0xFF);
+				map_part[i][j] = SDL_CreateTextureFromSurface (renderer, brick);
 			}
-			else 
+			else
 			{
 				loader = SDL_CreateRGBSurface (0, CELL_WIDTH, CELL_HEIGHT, DEPTH, 0xFF, 0xFF, 0xFF, 0xFF);
+				map_part[i][j] = SDL_CreateTextureFromSurface (renderer, loader);
 			}
-
-			map_part[i][j] = SDL_CreateTextureFromSurface (renderer, loader);
 
 			SDL_FreeSurface (loader);
 		}
 	}
+	SDL_FreeSurface(brick);
 }
 
 void initPlayerTexture (void)
@@ -62,7 +64,12 @@ void clearScreen ()
 
 void renderBackground()
 {
-	SDL_RenderCopy(renderer, background, NULL, NULL);
+	SDL_Rect dst;
+	dst.x = 0;
+	dst.y = 0;
+	dst.w = 320;
+	dst.h = 320;
+	SDL_RenderCopy(renderer, background, &dst, NULL);
 }
 
 void renderMap()

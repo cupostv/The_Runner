@@ -28,7 +28,7 @@
 	} PLAYER;
 
 	PLAYER* createPlayer ();
-	
+
 	void setPosition (PLAYER* player, uint32_t x, uint32_t y);
 
 	void setSpeed (PLAYER* player, uint8_t speed);

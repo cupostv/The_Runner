@@ -34,15 +34,12 @@ int main (int argc, char* argv[])
 			{
 				quit = 1;
 			}
-			else if( e.type == SDL_KEYDOWN)
-			{
-				processInput ();
-			}
 			else
 			{
 				player->left = 0;
 				player->right = 0;
 			}
+			processInput ();
 		}
 
 		clearScreen();

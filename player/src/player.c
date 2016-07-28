@@ -29,7 +29,7 @@ void setSpeed (PLAYER* player, uint8_t speed)
 {
 	player->speed = speed;
 }
-	
+
 void moveLeft (PLAYER* player)
 {
 	player->x_position -= player->speed;
@@ -127,7 +127,7 @@ void updatePlayer(PLAYER* player)
 			dy = dy - ((player->y_position + dy) % CELL_HEIGHT);
 			player->falling = 0;
 		}
-		
+
 	}
 
 	player->x_position += dx;
@@ -138,4 +138,3 @@ void deletePlayer (PLAYER* player)
 {
 	free (player);
 }
-
